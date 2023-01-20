@@ -11,71 +11,62 @@ export class ListaDischiComponent implements OnInit {
 
   //listFilter: string = '';
 
-  //creo la var di tipo string e la metto private
-  //l'accesso sarà tramite i metodi setter e getter
   private _listFilter: string = '';
 
-  //metodi getter e setter
   get listFilter(): string {
     return this._listFilter;
   }
-  //per un primo test mettiamo anche l'istruzione
-  //console.log('metodo setter: ', value)
-  //così vediamo il risultato nella console del browser
+
   set listFilter(value: string) {
     this._listFilter = value;
     console.log('nel setter: ', value);
-    //l'array creato richiama il metodo creaFiltro
-    //che restituisce un nuovo array.
+    //l'array creato richiama il metodo creaFiltro che restituisce un nuovo array.
     this.filteredRegistrazioni = this.datiFiltrati(value);
   }
-  //creo un array di IRegistrazione che conterrà
-  //l'elenco filtrato
+  //creo un array di IRegistrazione che conterrà l'elenco filtrato
   filteredRegistrazioni: IRegistrazione[] = [];
 
   dischi: IRegistrazione[] = [
     {
-      autore: 'Thin Lizzy',
-      titolo: 'Renegade',
+      autore: 'Linkin Park',
+      titolo: 'Hybrid Theory',
       prezzo: 10,
       immagine:
-        'https://tse2.mm.bing.net/th?id=OIP.vSwIRzO7pXv8Lc-hXlD7xQAAAA&pid=Api',
+        'https://upload.wikimedia.org/wikipedia/en/2/2a/Linkin_Park_Hybrid_Theory_Album_Cover.jpg',
     },
     {
-      autore: 'Stick Figure',
-      titolo: 'Wisdom',
-      prezzo: 15,
-      immagine: 'https://cdn.albumoftheyear.org/album/554294-wisdom.jpg',
-    },
-    {
-      autore: 'Stick Figure',
-      titolo: 'Set in stone',
+      autore: 'Linkin Park',
+      titolo: 'Meteora',
       prezzo: 15,
       immagine:
-        'http://3.bp.blogspot.com/-Pxcyw3sFfeA/VkEXDXzEsWI/AAAAAAAAAjI/JooZUZLS2RA/s1600/SetinStone%2B-%2BAlbum%2BArt%2B-final%2Bfinal%2Bfinal.jpg',
+        'https://upload.wikimedia.org/wikipedia/en/0/0c/Linkin_Park_Meteora_Album_Cover.jpg',
+    },
+    {
+      autore: 'Muse',
+      titolo: 'Black Holes and Revelations',
+      prezzo: 15,
+      immagine:
+        'https://miro.medium.com/max/1400/1*6gmTHZkC6z5gyyS2oo_xUQ.jpeg',
     },
   ];
-  //passiamo una stringa come argomento (filtratoPer)
-  //e ci viene restituito un array di IRegistrazione
+
+  //passiamo una stringa come argomento (filtratoPer) viene restituito un array di IRegistrazione
   datiFiltrati(filtratoPer: string): IRegistrazione[] {
-    //metto tutto in lowercase
-    filtratoPer = filtratoPer.toLocaleLowerCase();
-    //creo l'array filtrato e lo ritorno
-    //la function filter ritorna una array e passo una registrazione
-    //come argomento.
-    //Il nuovo array include (grazie ad includes) il valore
-    //passato inizialmente alla function datiFiltrati
+    //la function filter ritorna una array e passo una registrazione come argomento
+    //il nuovo array include (grazie ad includes) il valore passato inizialmente alla function datiFiltrati
     return this.dischi.filter((registrazione: IRegistrazione) =>
-      registrazione.autore.toLocaleLowerCase().includes(filtratoPer)
+      registrazione.autore
+        .toLocaleLowerCase()
+        .includes(filtratoPer.toLocaleLowerCase())
     );
   }
+
   mostraNascondiImg() {
     this.mostraImmagine = !this.mostraImmagine;
   }
+
   ngOnInit(): void {
-    //nella fase di caricamento impostiamo il filtro ""
-    //qui sotto viene assegnato il valore alla var _listFileter
-    //attraverso il set
+    //implicitamente richiama set
     this.listFilter = '';
   }
 }
